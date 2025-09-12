@@ -1,0 +1,30 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Maven
+target/
+
+# Gradle
+build/
+gradle/
+
+# Java compiled files
+*.class
+*.jar
+*.war
+*.ear
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+
+# Environment variables (if you have .env)
+.env
