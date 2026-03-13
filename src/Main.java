@@ -1,144 +1,92 @@
-import java.util.Scanner;
+import controller.Controller;
+import model.Data;
+import view.Console;
 
+/**
+ * Main entry point for the Testing System application
+ *
+ * @version 1.10 12 March 2026
+ * @author Varvara Svirina
+ */
 public class Main {
-    private static Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Main method that initializes and runs the application.
+     *
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
-        StsrtData.init(); // Инициализируем данные
-        System.out.println("Система дистанционного тестирования");
+        // Initialize Model
+        Data model = new Data();
+        model.initializeData();
 
+        // Initialize View
+        Console view = new Console(model);
+
+        // Initialize Controller
+        Controller controller = new Controller(model);
+
+        // Wire View callbacks to Controller actions
+        view.setUserLoginAction(userId -> {
+            boolean success = controller.handleUserLogin(userId);
+            if (success) {
+                view.setCurrentState(controller.getCurrentState());
+                displayDataForCurrentState(view, controller);
+            }
+        });
+
+        view.setMenuChoiceAction(choice -> {
+            controller.handleMenuChoice(choice);
+            displayDataForCurrentState(view, controller);
+
+            int currentChoice = choice;
+            if (currentChoice == 0) {
+                view.setCurrentState(controller.getCurrentState());
+            }
+        });
+
+        view.setExitAction(() -> {
+            controller.handleExit();
+            view.close();
+            System.exit(0);
+        });
+
+        // 5. Set initial state and start
+        view.setCurrentState(Console.AppState.USER_SELECTION);
+
+        // 6. Main input loop
         while (true) {
-            chooseUser(); // Пользователь выбирает себя по ID
-            if (Data.currentUser == null) {
-                break; // Выход из программы
-            }
-
-            showRoleMenu(); // Показываем меню по роли
+            view.handleInput();
         }
-
-        System.out.println("До свидания!");
-        scanner.close();
     }
 
-    // Выбор пользователя из списка
-    private static void chooseUser() {
-        System.out.println("Выберете пользователя:");
-        for (User user : Data.users) {
-            System.out.println(user);
-        }
-        System.out.println("0 Выйти из программы");
-        System.out.print("Введите ID пользователя: ");
+    /**
+     * Displays data based on current state and user choice.
+     *
+     * @param view the console view
+     * @param controller the controller
+     */
+    private static void displayDataForCurrentState(Console view, Controller controller) {
+        Data model = controller.getModel();
 
-        int id = scanner.nextInt();
-        scanner.nextLine(); // очистка буфера
-
-        if (id == 0) {
-            Data.currentUser = null;
-            return;
-        }
-
-        for (User user : Data.users) {
-            if (user.id == id) {
-                Data.currentUser = user;
-                System.out.println("Вы вошли как: " + user.name);
-                return;
-            }
-        }
-
-        System.out.println("Пользователь с ID " + id + " не найден.");
-        Data.currentUser = null;
-    }
-
-    // Меню в зависимости от роли
-    private static void showRoleMenu() {
-        Users role = Data.currentUser.person;
-
-        switch (role) {
-            case STUDENT:
-                studentMenu();
+        switch (controller.getCurrentState()) {
+            case STUDENT_MENU:
+                // Student can see all tests
+                view.displayTests(model.getTests());
                 break;
-            case TEACHER:
-                teacherMenu();
+            case TEACHER_MENU:
+                // Teacher can see their tests and results
+                int teacherId = model.getCurrentUser().getId();
+                view.displayTests(model.getTestsByAuthor(teacherId));
                 break;
-            case ADMIN:
-                adminMenu();
+            case ADMIN_MENU:
+                // Admin can see all users
+                System.out.println("\nСписок всех пользователей:");
+                model.getUsers().forEach(System.out::println);
+                System.out.println();
                 break;
-        }
-    }
-
-    // Меню студента
-    private static void studentMenu() {
-        while (true) {
-            System.out.println("\n    МЕНЮ СТУДЕНТА [" + Data.currentUser.name +"]    ");
-            System.out.println("1. Просмотреть список тестов");
-            System.out.println("0. Вернуться к выбору пользователя");
-            System.out.print("Выберите: ");
-
-            int choice = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (choice) {
-                case 1:
-                    Student.showTests();
-                    break;
-                case 0:
-                    Data.currentUser = null;
-                    return;
-                default:
-                    System.out.println("Неверный выбор!");
-            }
-        }
-    }
-
-    // Меню преподавателя
-    private static void teacherMenu() {
-        while (true) {
-            System.out.println("\n    МЕНЮ ПРЕПОДАВАТЕЛЯ [" + Data.currentUser.name +"]    ");
-            System.out.println("1. Мои тесты");
-            System.out.println("2. Результаты по моим тестам");
-            System.out.println("0. Вернуться к выбору пользователя");
-            System.out.print("Выберите: ");
-
-            int choice = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (choice) {
-                case 1:
-                    Teacher.MyTests();
-                    break;
-                case 2:
-                    Teacher.MyResults();
-                    break;
-                case 0:
-                    Data.currentUser = null;
-                    return;
-                default:
-                    System.out.println("Неверный выбор!");
-            }
-        }
-    }
-
-    // Меню администратора
-    private static void adminMenu() {
-        while (true) {
-            System.out.println("\n    МЕНЮ АДМИНИСТРАТОРА [" + Data.currentUser.name + "]    ");
-            System.out.println("1. Список всех пользователей");
-            System.out.println("0. Вернуться к выбору пользователя");
-            System.out.print("Выберите: ");
-
-            int choice = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (choice) {
-                case 1:
-                    Admin.showAllUsers();
-                    break;
-                case 0:
-                    Data.currentUser = null;
-                    return;
-                default:
-                    System.out.println("Неверный выбор!");
-            }
+            default:
+                break;
         }
     }
 }
