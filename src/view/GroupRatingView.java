@@ -12,7 +12,7 @@ import java.util.Scanner;
  * A View for console interaction.
  * Delegates all business logic to the controller. Does not change the model directly.
  *
- * @version 1.10 27 March 2026
+ * @version 1.10 28 March 2026
  * @author Varvara Svirina
  */
 public class GroupRatingView {

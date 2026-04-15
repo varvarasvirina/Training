@@ -4,7 +4,7 @@ package model;
  * Represents a learning test with the highest score.
  * The class is fully encapsulated: fields are immutable, accessible only through getters.
  *
- * @version 1.10 27 March 2026
+ * @version 1.10 28 March 2026
  * @author Varvara Svirina
  */
 public class Test {
@@ -31,14 +31,6 @@ public class Test {
      */
     public int getId() {
         return id;
-    }
-
-    /** Returns the full name of the test.
-     *
-     * @return the test name
-     */
-    public String getName() {
-        return name;
     }
 
     /** Returns the max possible score of the test.

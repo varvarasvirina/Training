@@ -7,7 +7,7 @@ import java.util.List;
  * Simulation of an in-memory database.
  * Encapsulates the storage and delivery of learning entities
  *
- *  @version 1.10 27 March 2026
+ *  @version 1.10 28 March 2026
  *  @author Varvara Svirina
  */
 public class Database {

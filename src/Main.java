@@ -7,7 +7,7 @@ import java.util.Scanner;
 /**
  * The entry point to the application. Binds the MVC components and starts execution.
  *
- * @version 1.10 27 March 2026
+ * @version 1.10 28 March 2026
  * @author Varvara Svirina
  */
 public class Main {

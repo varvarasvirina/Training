@@ -3,7 +3,7 @@ package model;
 /**
  * DTO (Data Transfer Object) to store the student and his calculated rating.
  *
- * @version 1.10 27 March 2026
+ * @version 1.10 28 March 2026
  * @author Varvara Svirina
  */
 public class StudentRating {
