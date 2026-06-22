@@ -1,4 +1,9 @@
-package model;
+package util;
+
+import model.Group;
+import model.Student;
+import model.Test;
+import model.TestResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +15,7 @@ import java.util.List;
  *  @version 1.10 28 March 2026
  *  @author Varvara Svirina
  */
-public class Database {
+public class Entities {
     private final List<Group> groups = new ArrayList<>();
     private final List<Student> students = new ArrayList<>();
     private final List<Test> tests = new ArrayList<>();
@@ -19,7 +24,7 @@ public class Database {
     /**
      * Constructor a {@code Database}.
      */
-    public Database() {
+    public Entities() {
         populateInitialData();
     }
 
