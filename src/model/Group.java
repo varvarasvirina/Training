@@ -4,7 +4,7 @@ package model;
  * Represents an academic group of students.
  * The class is fully encapsulated: fields are immutable, accessible only through getters.
  *
- * @version 1.10 28 March 2026
+ * @version 1.10 23 June 2026
  * @author Varvara Svirina
  */
 public class Group {
