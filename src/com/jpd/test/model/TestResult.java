@@ -1,4 +1,4 @@
-package model;
+package com.jpd.test.model;
 
 /**
  * Represents the test result of a particular student.
