@@ -51,11 +51,11 @@ public class AppController {
                 String action = view.readAction();
 
                 switch (action) {
-                    case "1" -> handleRoleAction(currentRole);
-                    case "2" -> {
+                    case "1" -> {
                         System.out.println("\nВозврат к выбору роли");
                         roleSessionActive = false;
                     }
+                    case "2", "3" -> handleRoleAction(currentRole, action);
                     case "0" -> {
                         appRunning = false;
                         roleSessionActive = false;
@@ -72,11 +72,11 @@ public class AppController {
      *
      * @param role the current {@code Role} of the logged-in user
      */
-    private void handleRoleAction(Role role) {
+    private void handleRoleAction(Role role, String action) {
         switch (role) {
-            case STUDENT -> studentController.execute("1");
-            case TEACHER -> teacherController.execute("1");
-            case ADMIN -> adminController.execute("1");
+            case STUDENT -> studentController.execute(action);
+            case TEACHER -> teacherController.execute(action);
+            case ADMIN -> adminController.execute(action);
         }
     }
 }

@@ -1,9 +1,6 @@
 package com.jpd.test.view;
 
-import com.jpd.test.model.Role;
-import com.jpd.test.model.Test;
-import com.jpd.test.model.User;
-import com.jpd.test.model.TestResult;
+import com.jpd.test.model.*;
 import java.util.List;
 
 /**
@@ -69,6 +66,12 @@ public class ConsoleView {
         return input.readAction();
     }
 
+    /**
+     * Prompts the user to enter a group ID from the console.
+     *
+     * @return the entered group ID (defaults to 1 if the input is invalid)
+     */
+    public int promptGroupId() { return input.promptGroupId(); }
 
     /**
      * Prints the interactive menu options available to a Student.
@@ -120,4 +123,24 @@ public class ConsoleView {
     public void showUsers(List<User> users) {
         adminView.showUsers(users);
     }
+
+    /**
+     * Displays a formatted table of students and their academic ratings for a specific group.
+     *
+     * @param groupName the name of the group being displayed
+     * @param ratings   the list of {@code StudentRating} objects sorted by rating in descending order
+     */
+    public void printGroupRating(String groupName, List<StudentRating> ratings) {
+        teacherView.printGroupRating(groupName, ratings);
+    }
+
+    /**
+     * Displays a list of available groups for the teacher to choose from.
+     *
+     * @param groups the list of all groups in the database
+     */
+    public void showGroupList(List<Group> groups) {
+        teacherView.showGroupList(groups);
+    }
+
 }

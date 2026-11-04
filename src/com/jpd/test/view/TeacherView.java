@@ -1,8 +1,6 @@
 package com.jpd.test.view;
 
-import com.jpd.test.model.Test;
-import com.jpd.test.model.User;
-import com.jpd.test.model.TestResult;
+import com.jpd.test.model.*;
 import java.util.List;
 
 /**
@@ -18,8 +16,10 @@ public class TeacherView {
      */
     public void printMenu() {
         System.out.println("\nМеню Преподавателя:");
-        System.out.println("1. Просмотреть свои тесты и результаты студентов");
-        System.out.println("2. Сменить пользователя");
+        System.out.println("1. Сменить пользователя");
+        System.out.println("2. Просмотреть свои тесты и результаты студентов");
+        System.out.println("3. Рассчитать рейтинг группы");
+
         System.out.println("0. Выход");
     }
 
@@ -54,5 +54,35 @@ public class TeacherView {
                 System.out.println("   Нет результатов");
             }
         }
+    }
+
+    /**
+     * Displays a list of available groups for selection.
+     *
+     * @param groups the list of all groups
+     */
+    public void showGroupList(List<Group> groups) {
+        System.out.println("\n Доступные группы:");
+        System.out.printf("%-5s | %-20s%n", "ID", "Название группы");
+        for (Group g : groups) {
+            System.out.printf("%-5d | %-20s%n", g.getId(), g.getName());
+        }
+    }
+
+    /**
+     * Renders a formatted table of students and their ratings.
+     *
+     * @param groupName the name of the group being displayed
+     * @param ratings   the list of {@code StudentRating} objects sorted by rating
+     */
+    public void printGroupRating(String groupName, List<StudentRating> ratings) {
+        System.out.println("\nРейтинг группы: " + groupName);
+        System.out.println("--------------------------------------------------");
+        System.out.printf("%-20s | %s%n", "Студент", "Рейтинг (0-10)");
+        System.out.println("--------------------------------------------------");
+        for (StudentRating sr : ratings) {
+            System.out.printf("%-20s | %.2f%n", sr.getStudent().getName(), sr.getRating());
+        }
+        System.out.println("--------------------------------------------------");
     }
 }

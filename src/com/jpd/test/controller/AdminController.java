@@ -29,7 +29,7 @@ public class AdminController {
      * @param action the string identifier of the action to perform
      */
     public void execute(String action) {
-        if ("1".equals(action)) {
+        if ("2".equals(action)) {
             List<User> allUsers = Database.users;
             view.showUsers(allUsers);
         } else {

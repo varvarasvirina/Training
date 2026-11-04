@@ -43,4 +43,18 @@ public class ConsoleInput {
         System.out.print("Действие: ");
         return scanner.nextLine().trim();
     }
+
+    /**
+     * Prompts the user to enter a group ID with error handling.
+     */
+    public int promptGroupId() {
+        System.out.print("Введите ID группы (например, 1 или 2): ");
+        String input = scanner.nextLine().trim();
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Некорректный ввод. Используется группа по умолчанию (ID: 1).");
+            return 1;
+        }
+    }
 }

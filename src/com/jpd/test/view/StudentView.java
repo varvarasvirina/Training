@@ -16,8 +16,8 @@ public class StudentView {
      */
     public void printMenu() {
         System.out.println("\nМеню Студента: ");
-        System.out.println("1. Просмотреть список тестов");
-        System.out.println("2. Сменить пользователя");
+        System.out.println("1. Сменить пользователя");
+        System.out.println("2. Просмотреть список тестов");
         System.out.println("0. Выход");
     }
 

@@ -29,7 +29,7 @@ public class StudentController {
      * @param action the string identifier of the action to perform
      */
     public void execute(String action) {
-        if ("1".equals(action)) {
+        if ("2".equals(action)) {
             List<Test> allTests = Database.tests;
             view.showTestsAndCounts(allTests);
         } else {

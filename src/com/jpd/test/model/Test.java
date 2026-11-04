@@ -14,6 +14,7 @@ public class Test {
     private final String title;
     private final int teacherId;
     private final List<Question> questions;
+    private final double maxScore;
 
     /**
      * Constructs a {@code Test} with the specified parameters.
@@ -22,12 +23,14 @@ public class Test {
      * @param title     the title or name of the test
      * @param teacherId the unique identifier of the teacher who created the test
      * @param questions the list of questions included in the test
+     * @param maxScore  the maximum score for the test
      */
-    public Test(int id, String title, int teacherId, List<Question> questions) {
+    public Test(int id, String title, int teacherId, List<Question> questions, double maxScore) {
         this.id = id;
         this.title = title;
         this.teacherId = teacherId;
         this.questions = questions;
+        this.maxScore = maxScore;
     }
 
     /**
@@ -65,4 +68,11 @@ public class Test {
     public int getQuestionCount() {
         return questions != null ? questions.size() : 0;
     }
+
+    /**
+     * Returns the maximum score for the test.
+     *
+     * @return the maxScore of the test
+     */
+    public double getMaxScore() { return maxScore; }
 }
